@@ -174,6 +174,12 @@ If interactions between isoforms are known, the isoforms are connected to the su
 - Whippet *.diff
 - rMATS SE.MATS.JC.txt
 
+The Standard input format contains three columns: gene ID, exon start coordinate, and exon end coordinate. E.g.:
+
+**Gene ID** | **Start** | **End**  
+--- | --- | --- 
+ENSG00000033627 | 42508572	| 42508589 | 290 | 286 | 289 | 285 | 287 | 287 | 272 | 276 | 269
+
 If you have a lot of files to run with NEASE, consider using the Python package: https://github.com/louadi/NEASE.
 
 To start the analysis, upload your file (**A**), define an organism (**B**) (currently, Homo sapiens or Mus musculus), the input file type (**C**), and adjust the parameters.
@@ -294,7 +300,32 @@ python main_ddi_extend.py
 cd ..
 docker-compose up -d --force-recreate
 ````
+# Frequently asked questions
 
+**Question 1:** Could I input multiple isoforms?
+
+*Answer 1:* Yes, you can input multiple isoform IDs, gene names, and gene IDs into the query field and even mix them. The first query page will then start by showing the interactions between input genes. To investigate each gene individually, use the "Queries" option in the upper left corner of the page.
+
+**Question 2:** What are high, medium, and low confidence levels for DDI?
+
+*Answer 2:* The confidence level is defined based on the prediction score from the PPIDM algorithm.
+
+**Question 3:** I would like to use the output images in my manuscript. How could I do that?
+
+*Answer 3:* You can save figures with the right click of the mouse -> 'Save Image as' option. Also, for NEASE plots, you can use a download button to download high-resolution figures.
+
+**Question 4:** What is 'min delta' option in the NEASE analysis?
+
+*Answer 4:* 'Min delta' refers to the deltaPSI value that defines the level of differential splicing between conditions. Here PSI value means 'Percentage Spliced In' and reflects the ratio between isoforms that use and splice out alternative exon. The calculation of PSI values varies from tool to tool, thus for more details consult the manuscript about the tools of interest. deltaPSI is simply the difference between the PSI value of an event in one condition and the PSI value of the same event in the other condition.
+  The choice of the threshold depends on the study design. If only highly differentially spliced events should be considered, the threshold could be set to 0.1 or even 0.2. E.g., MAJIQ uses 0.2 as a default threshold.
+
+**Question 5:** What is "MAJIQ confidence" option?
+
+*Answer 5:* MAJIQ does not output p-values. Instead, for each alternative junction, the tool reports "Confidence Level" and 0.95 is suggested as a default threshold. For more details, check the MAJIQ publication.
+
+**Question 6:** How long will my analysis be available?
+
+*Answer 6:* By default, previous analyses will be available for 7 days. This period can be extended.
 
 # Cite
 
