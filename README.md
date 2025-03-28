@@ -90,9 +90,13 @@ If you use DIGGER, please cite:
 
 Zakaria Louadi, Kevin Yuan, Alexander Gress, Olga Tsoy, Olga Kalinina, Jan Baumbach, Tim Kacprowski*, Markus List*. DIGGER: exploring the functional role of alternative splicing in protein interactions, Nucleic Acids Research, https://doi.org/10.1093/nar/gkaa768  (*joint last author)
 
+
 ## Development
+
 First released by: Zakaria Louadi
+
 Maintainers: Elias Albrecht / Konstantin Pelz
+
 
 ## Contact us
 Elias Albrecht: elias.albrecht@tum.de
