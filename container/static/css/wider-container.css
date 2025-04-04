@@ -36,7 +36,7 @@
     }
 }
 
-@media (min-width: 1920px) {
+@media (min-width: 1800px) {
     .wider-container {
         max-width: 1820px;
     }
