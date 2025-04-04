@@ -226,7 +226,8 @@ def exon_3D(exon_IDs, Ensemble_transID, organism):
         text_edges = [(f"{x[0][0]}/{x[0][1]}", f"{x[1][0]}/{x[1][1]}")
                       for x in edge_tuples if all([x[0][0], x[0][1], x[1][0], x[1][1]])]
 
-    co_partners = list(set(co_partners))
+    # avoid duplicates as well as False values
+    co_partners = list(set([x for x in co_partners if type(x) == str]))
     print(f"Co partners: {co_partners}")
 
     for exon_ID in exon_IDs:
