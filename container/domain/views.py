@@ -88,7 +88,7 @@ def multiple_queries(request, inputs, organism):
 
     if matches == 0:
         origin = request.GET.get('origin', None)
-        original_input = "/ ".join(inputs.split(","))
+        original_input = "~".join(inputs.split(","))
         return redirect(f"{reverse(origin)}?search={original_input}&organism={organism}")
 
     # iterate through all query ids
@@ -460,7 +460,10 @@ def isoform_level(request):
             print("User input is a gene")
             return redirect(gene, gene_ID=search_query, organism=organism)
 
-        msg = {"error": f"No entries contain {request.GET['search'].strip()}."}
+        search = request.GET['search'].strip()
+        if "~" in search:
+            search = ", ".join(search.split("~"))
+        msg = {"error": f"No database entries contain {search}."}
 
     else:
         msg = {}
