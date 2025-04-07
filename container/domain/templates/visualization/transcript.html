@@ -74,8 +74,9 @@
           $('#Interaction_table').DataTable();
           var url = window.location.href;
           if (url.indexOf("#") > 0){
-          var activeTab = url.substring(url.indexOf("#") + 1);
+            var activeTab = url.substring(url.indexOf("#") + 1);
             $('.nav[role="tablist"] a[href="#'+activeTab+'"]').tab('show');
+            document.getElementById("Interaction_table_wrapper").scrollIntoView();
           }
 
           $('a[role="tab"]').on("click", function() {
