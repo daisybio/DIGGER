@@ -26,6 +26,9 @@
     </div>
 
   <div id="info_alert" class="alert alert-info my-3">You can also put in multiple search terms separated by a comma.</div>
+  {% if error %}
+  <div id="alert_danger" class="alert alert-danger my-3">{{ error|safe }}</div>
+  {% endif %}
 
 
     <form class="card card-sm rounded" >
