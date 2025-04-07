@@ -414,16 +414,18 @@ def transcript_table(transcript_id, organism, protein_ID=False):
 
     h = reverse('home') + "ID/" + organism + "/"
     link = '<a class="visualize" href="' + h + transcript_id + '">' + " Visualize " + '</a>'
+    interactions_link = '<a class="visualize" href="' + h + transcript_id + '#v-pills-interaction">' + " Show Interactions " + '</a>'
     trans_pfams = [nt.link(x) for x in trans_pfams]
     domains = ', '.join(trans_pfams)
     # make a dataframe
 
+
     transcript_data = pd.DataFrame(columns=['Transcript name', 'Transcript ID', 'Pfam domains', '<span '
                                             'class="text-success">Present</span> / <span class="text-danger">Missing'
-                                            '</span> interacting domains in the isoform', 'Link'])
+                                            '</span> interacting domains in the isoform', 'Link', 'Effect on Interactions'])
     transcript_data = transcript_data.append({'Transcript name': transcript_name, 'Transcript ID': transcript_id,
                                               'Pfam domains': domains,
                                               '<span class="text-success">Present</span> / <span class="text-danger">'
                                               'Missing</span> interacting domains in the isoform': missing,
-                                              'Link': link}, ignore_index=True)
+                                              'Link': link, 'Effect on Interactions':interactions_link}, ignore_index=True)
     return transcript_data.to_html(**settings.TO_HTML_PARAMETERS)

@@ -91,6 +91,7 @@ def TranscriptsID_to_table(transcripts, organism, entrez='0'):
 
             h = reverse('home') + "ID/" + organism + "/"
             pd_isoforms["Link"] = '<a class="visualize" href="' + h + pd_isoforms["Transcript ID"] + '">' + " Visualize " + '</a>'
+            pd_isoforms["Effect on Interactions"] = '<a class="visualize" href="' + h + pd_isoforms["Transcript ID"] + '#v-pills-interaction">' + " Show Interactions " + '</a>'
 
             pd.set_option('display.max_colwidth', 1000)
 
