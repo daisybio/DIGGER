@@ -24,7 +24,7 @@ DIGGER uses the following sources for PPI, DDIs, and interacting residues:
 - DOMINE (DDIs)
 - PDB (interacting residues)
 
-Domain-domain interaction predictions are based on the predictions of [PPIDM](10.1371/journal.pcbi.1008844).
+Domain-domain interaction predictions are based on the predictions of [PPIDM](https://doi.org/10.1371/journal.pcbi.1008844).
 
 DIGGER provides PPI visualizations in a structural context using a dynamic graph visualization that can be toggled between a protein
 isoform and a domain-centric view (Figure 1, **B**). Furthermore, the tool maps the protein features encoded by a selected exon,
