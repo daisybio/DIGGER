@@ -80,13 +80,6 @@
                 document.getElementById("Interaction_table_wrapper").scrollIntoView();
             }, 1000);
           }
-
-          $('a[role="tab"]').on("click", function() {
-            var newUrl;
-            const hash = $(this).attr("href");
-              newUrl = url.split("#")[0] + hash;
-            history.replaceState(null, null, newUrl);
-          });
       });
 
   </script>
