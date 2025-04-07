@@ -76,7 +76,9 @@
           if (url.indexOf("#") > 0){
             var activeTab = url.substring(url.indexOf("#") + 1);
             $('.nav[role="tablist"] a[href="#'+activeTab+'"]').tab('show');
-            setTimeout(document.getElementById("Interaction_table_wrapper").scrollIntoView(), 2000);
+            setTimeout(function(){
+                document.getElementById("Interaction_table_wrapper").scrollIntoView();
+            }, 2000);
           }
 
           $('a[role="tab"]').on("click", function() {
