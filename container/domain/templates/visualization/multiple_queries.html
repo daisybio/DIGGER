@@ -93,7 +93,11 @@
     <div class="col-lg-10">
       <!-- Tab content -->
       <div class="tab-content" id="v-pills-tabContent">
-      
+
+        {% if not_found|length > 0 %}
+        <div class="alert alert-warning my-3">Some queries could not be found in our database: {{ not_found|join:", " }}.</div>
+        {% endif %}
+
         <!-- Queries tab -->
         <div class="tab-pane fade card shadow rounded {% if not show_network %} show active pepe {% endif %}"
              id="v-pills-queries" role="tabpanel">
