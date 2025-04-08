@@ -14,6 +14,10 @@
       useful to identify isoform-specific interactions and to compare between different isoforms.</p>
   </div>
 
+  {% if error %}
+  <div id="alert_danger" class="alert alert-danger my-3">{{ error|safe }}</div>
+  {% endif %}
+
   <div role="tabpanel" class="tab-pane" id="Section3">
     <form class="card card-sm shadow" autocomplete="off">
       <div class="card-body row no-gutters align-items-center">

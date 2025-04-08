@@ -81,9 +81,21 @@ def multiple_queries(request, inputs, organism):
             print(e)
             continue
 
+    matches = 0
+    for query in transcript_table.keys():
+        if len(transcript_table[query]) > 0:
+            matches += 1
+
+    if matches == 0:
+        origin = request.GET.get('origin', None)
+        original_input = "~".join(inputs.split(","))
+        return redirect(f"{reverse(origin)}?search={original_input}&organism={organism}")
+
     # iterate through all query ids
     id_list = []
     for query in transcript_table.keys():
+        if len(transcript_table[query]) == 0:
+            continue
         # search for the id in the transcript table string. This is suboptimal but it works for now
         co_partners = []
         find_co_partners = True
@@ -423,7 +435,8 @@ def isoform_level(request):
         # allow user to input multiple queries separated by commas
         multiple = search_query.split(",")
         if len(multiple) > 1:
-            return redirect(multiple_queries, inputs=search_query, organism=organism)
+            url = reverse('multiple-queries', kwargs={'inputs': search_query, 'organism': organism})
+            return redirect(f"{url}?origin=isoform-level")
 
         # Try and parse the search_query as gene name from the database
         with connection.cursor() as cursor:
@@ -447,11 +460,20 @@ def isoform_level(request):
             print("User input is a gene")
             return redirect(gene, gene_ID=search_query, organism=organism)
 
-    return render(request, 'setup/isoform_level.html', )
+        search = request.GET['search'].strip()
+        if "~" in search:
+            search = ", ".join(search.split("~"))
+        msg = {"error": f"No database entries contain {search}."}
+
+    else:
+        msg = {}
+
+    return render(request, 'setup/isoform_level.html', msg)
 
 
 # exon_level search box
 def exon_level(request):
+    msg = {"error": "No entries found in our database for your search query."}
     if "search" in request.GET:  # If the form is submitted
         # Input and Exon ID
         print('-----------------------------------------------------------')
@@ -466,11 +488,12 @@ def exon_level(request):
         # allow user to input multiple queries separated by commas
         multiple = search_query.split(",")
         if len(multiple) > 1:
-            return redirect(multiple_queries, inputs=search_query, organism=organism)
+            url = reverse('multiple-queries', kwargs={'inputs': search_query, 'organism': organism})
+            return redirect(f"{url}?origin=exon-level")
 
         if re.match(r'ENS\w*[E]\d+$', search_query):
             return redirect(exon, organism=organism, exon_ID=search_query)
-    if "search 2" in request.GET:  # If the form is submitted
+    elif "search 2" in request.GET:  # If the form is submitted
         # Input coordinate of the exon
         # Check if coordinate are correct
         #  Example   ' ENSG00000266028  206437964 206437042 '
@@ -505,7 +528,7 @@ def exon_level(request):
                 else:
                     return render(request, 'visualization/no_info.html', {'name': gene_ID,
                                                                           'info': 'The exon is not in the database'})
-    if "search 3" in request.GET:  # If option 3 is selected
+    elif "search 3" in request.GET:  # If option 3 is selected
 
         # Get and sanitize the search_query
         search_query = request.GET['search 3'].strip()
@@ -514,7 +537,8 @@ def exon_level(request):
         # allow user to input multiple queries separated by commas
         multiple = search_query.split(",")
         if len(multiple) > 1:
-            return redirect(multiple_queries, inputs=search_query, organism=organism)
+            url = reverse('multiple-queries', kwargs={'inputs': search_query, 'organism': organism})
+            return redirect(f"{url}?origin=exon-level")
 
         with connection.cursor() as cursor:
             cursor.execute("""SELECT ensembl_id FROM domain_gene_""" + organism + """ WHERE gene_symbol ILIKE %s""",
@@ -536,7 +560,10 @@ def exon_level(request):
         elif re.match(r'ENS\w*G\d+$', search_query):
             return redirect(gene, organism=organism, gene_ID=search_query)
 
-    return render(request, 'setup/exon_level.html', )
+    else:
+        msg = {}
+
+    return render(request, 'setup/exon_level.html', msg)
 
 
 # PPI network analysis

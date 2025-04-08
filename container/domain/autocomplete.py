@@ -19,12 +19,15 @@ def gene_symbol_autocomplete(request):
         LIMIT 20
         """
 
-        # Execute the raw SQL query
-        with connection.cursor() as cursor:
-            cursor.execute(raw_sql, [q + '%'])  # Add the '%' wildcard to the query string
-            rows = cursor.fetchall()
+        try:
+            # Execute the raw SQL query
+            with connection.cursor() as cursor:
+                cursor.execute(raw_sql, [q + '%'])  # Add the '%' wildcard to the query string
+                rows = cursor.fetchall()
 
-        # Format the results
-        data = [{'gene_symbol': row[0], 'ensembl_id': row[1]} for row in rows]
+            # Format the results
+            data = [{'gene_symbol': row[0], 'ensembl_id': row[1]} for row in rows]
+        except IndexError:
+            data = []
 
     return JsonResponse(data, safe=False)
