@@ -82,9 +82,17 @@ def multiple_queries(request, inputs, organism):
             continue
 
     matches = 0
+    not_found = []
+    filtered_table = {}
     for query in transcript_table.keys():
         if len(transcript_table[query]) > 0:
             matches += 1
+            filtered_table[query] = transcript_table[query]
+        else:
+            # remove the query from the transcript table
+            not_found.append(query.strip())
+
+    transcript_table = filtered_table
 
     if matches == 0:
         origin = request.GET.get('origin', None)
@@ -130,7 +138,8 @@ def multiple_queries(request, inputs, organism):
         'trans_table': transcript_table,
         'combined_nodes': combined_nodes,
         'combined_edges': combined_edges,
-        'switch': []
+        'switch': [],
+        'not_found': not_found,
     }
 
     return render(request, 'visualization/multiple_queries.html', context)
