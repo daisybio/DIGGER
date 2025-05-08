@@ -82,10 +82,11 @@ docker-compose up -d --force-recreate
 
 ## Cite
 
-If you use DIGGER, please cite:
+If you use DIGGER 2.0, please cite:
 
-
-Zakaria Louadi, Kevin Yuan, Alexander Gress, Olga Tsoy, Olga Kalinina, Jan Baumbach, Tim Kacprowski*, Markus List*. DIGGER: exploring the functional role of alternative splicing in protein interactions, Nucleic Acids Research, https://doi.org/10.1093/nar/gkaa768  (*joint last author)
+Elias Albrecht*, Konstantin Pelz*, Alexander Gress, Hieu Nguyen Trung, Olga V Kalinina, Tim Kacprowski, Jan Baumbach, 
+Markus List+, Olga Tsoy+ DIGGER 2.0: digging into the functional impact of differential splicing on human and mouse 
+disorders, Nucleic Acids Research, https://doi.org/10.1093/nar/gkaf384  (*joint first author, + joint last author)
 
 
 ## Contact us
